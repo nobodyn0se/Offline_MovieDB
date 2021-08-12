@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.movies_database">
    <application
-        android:label="movies_database"
+        android:label="Movies DB"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
