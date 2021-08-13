@@ -24,6 +24,20 @@ class SignInScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Container(
+            height: 150,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black54,
+                  blurRadius: 40,
+                ),
+              ],
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(100),
+              ),
+            ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 10),
             child: Row(
