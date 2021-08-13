@@ -73,6 +73,36 @@ class SignInScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
           ),
+          InkWell(
+            onTap: () {
+              final prov = Provider.of<LogInProvider>(context, listen: false);
+              prov.logUser();
+            },
+            child: Ink(
+              color: Color(0xFF397AF3),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/google_logo.png',
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Log In With Google',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Spacer(
             flex: 5,
           ),
