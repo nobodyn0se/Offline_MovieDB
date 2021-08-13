@@ -9,6 +9,10 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backwardsCompatibility: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.black,
+            statusBarIconBrightness: Brightness.light),
         backgroundColor: Colors.black,
         brightness: Brightness.dark,
         centerTitle: true,
