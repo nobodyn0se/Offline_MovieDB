@@ -26,6 +26,11 @@ class MainScreen extends StatelessWidget {
             onPressed: () {
               final prov = Provider.of<LogInProvider>(context, listen: false);
               prov.logOut();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Logged out'),
+                ),
+              );
             },
             tooltip: 'Log Out',
             icon: Icon(
