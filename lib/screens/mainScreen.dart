@@ -6,10 +6,21 @@ import 'package:provider/provider.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LogInProvider>(context);
     const String mainTitle = 'Movies Database';
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              provider.url,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
         elevation: 0,
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
