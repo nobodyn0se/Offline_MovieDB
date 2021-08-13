@@ -43,6 +43,18 @@ class MainScreen extends StatelessWidget {
       body: Center(
         child: Text('This is the main screen'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.grey[400],
+        tooltip: 'Add Movies',
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Icon(
+          Icons.add_task,
+        ),
+      ),
     );
   }
 }
