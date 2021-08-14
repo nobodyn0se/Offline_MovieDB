@@ -96,7 +96,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                     Text(
                       'Log In With Google',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ],
                 ),
