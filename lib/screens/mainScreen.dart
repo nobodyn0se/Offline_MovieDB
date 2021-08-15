@@ -74,7 +74,6 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              final prov = Provider.of<LogInProvider>(context, listen: false);
               prov.logOut();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -156,16 +155,11 @@ class _MainScreenState extends State<MainScreen> {
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.black87, width: 1),
               borderRadius: BorderRadius.circular(10),
-                ),
-                DefaultTextStyle(
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      backgroundColor: Colors.black54),
-                  child: ListView(
+            ),
+            child: ListView(
               physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
+              shrinkWrap: true,
+              children: [
                 Stack(
                   alignment: AlignmentDirectional.bottomStart,
                   children: [
@@ -178,21 +172,21 @@ class _MainScreenState extends State<MainScreen> {
                           File(mov.imagePath),
                           fit: BoxFit.fitWidth,
                         ),
-                  ),
-                ),
-                Positioned(
+                      ),
+                    ),
+                    Positioned(
                       top: 8,
                       right: 8,
-                  child: Container(
+                      child: Container(
                         color: mov.isWatched ? Colors.grey : Colors.white,
-                    child: IconButton(
-                      iconSize: 20,
-                      color: Colors.black,
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        showDelete(mov.id!);
-                      },
-                    ),
+                        child: IconButton(
+                          iconSize: 20,
+                          color: Colors.black,
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            showDelete(mov.id!);
+                          },
+                        ),
                       ),
                     ),
                     Positioned(
@@ -207,6 +201,29 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      Text(
+                        '${mov.movieName}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        '${mov.director}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
                   ),
                 ),
               ],
