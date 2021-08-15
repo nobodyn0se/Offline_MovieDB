@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movies_database/providers/logInProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class MainScreen extends StatelessWidget {
   @override
@@ -55,7 +57,8 @@ class MainScreen extends StatelessWidget {
         child: Text('This is the main screen'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+          pickImage();
+        },
         foregroundColor: Colors.black,
         backgroundColor: Colors.grey[400],
         tooltip: 'Add Movies',
@@ -67,5 +70,13 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      showForm(image.path);
+    }
   }
 }
