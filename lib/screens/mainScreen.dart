@@ -151,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Card(
-            color: Colors.white,
+            color: mov.isWatched == true ? Colors.grey : Colors.white,
             elevation: 5,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.black87, width: 1),
@@ -184,7 +184,7 @@ class _MainScreenState extends State<MainScreen> {
                       top: 8,
                       right: 8,
                   child: Container(
-                    color: Colors.white,
+                        color: mov.isWatched ? Colors.grey : Colors.white,
                     child: IconButton(
                       iconSize: 20,
                       color: Colors.black,
@@ -193,6 +193,20 @@ class _MainScreenState extends State<MainScreen> {
                         showDelete(mov.id!);
                       },
                     ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 8,
+                      left: 8,
+                      child: mov.isWatched
+                          ? Text(
+                              'Watched already',
+                              style: TextStyle(backgroundColor: Colors.green),
+                            )
+                          : Text(''),
+                    ),
+                  ],
+                ),
                   ),
                 ),
               ],
