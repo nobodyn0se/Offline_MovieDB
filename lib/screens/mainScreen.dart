@@ -166,15 +166,23 @@ class _MainScreenState extends State<MainScreen> {
               physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      Text('${mov.movieName}'),
-                      Text('${mov.director}'),
-                      Text('${mov.id}'),
-                    ],
+                Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 180,
+                        width: double.maxFinite,
+                        child: Image.file(
+                          File(mov.imagePath),
+                          fit: BoxFit.fitWidth,
+                        ),
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
+                      top: 8,
+                      right: 8,
                   child: Container(
                     color: Colors.white,
                     child: IconButton(
