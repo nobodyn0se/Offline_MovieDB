@@ -4,8 +4,39 @@ import 'package:movies_database/providers/logInProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
 
-class MainScreen extends StatelessWidget {
+class _MainScreenState extends State<MainScreen> {
+  bool isLoading = false;
+  List<Movies> movies = [];
+
+  Future retrieveNotes() async {
+    setState(() => isLoading = true);
+    this.movies = await MoviesDatabase.instance.getMoviesList();
+    setState(() => isLoading = false);
+    print('List called');
+  }
+
+  @override
+  void initState() {
+    retrieveNotes();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    MoviesDatabase.instance.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<LogInProvider>(context);
@@ -54,9 +85,14 @@ class MainScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('This is the main screen'),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : movies.isEmpty
+                ? Text('Watchlist empty! Add some movies')
+                : showList(),
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: () {
           pickImage();
         },
         foregroundColor: Colors.black,
