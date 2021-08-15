@@ -16,6 +16,9 @@ class AddMovie extends StatefulWidget {
 
 class _AddMovieState extends State<AddMovie> {
   bool switchState = false;
+  String? movieName;
+  String? directorName;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,7 @@ class _AddMovieState extends State<AddMovie> {
         actions: [
           TextButton(
             onPressed: () {
+              Navigator.pop(context);
             },
             child: Text('Cancel'),
           ),
