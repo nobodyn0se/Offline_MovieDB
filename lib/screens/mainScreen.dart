@@ -68,6 +68,8 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              final prov = Provider.of<LogInProvider>(context, listen: false);
+              Navigator.popUntil(context, (route) => route.isFirst);
               prov.logOut();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
