@@ -7,6 +7,7 @@ import 'package:movies_database/dbmodel/dbModel.dart';
 import 'package:movies_database/providers/logInProvider.dart';
 import 'package:movies_database/widgets/AddMovie.dart';
 import 'package:movies_database/widgets/deleteMovie.dart';
+import 'package:movies_database/widgets/updateMovie.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,7 +18,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   bool isLoading = false;
-  late final prov;
   List<Movies> movies = [];
 
   Future retrieveNotes() async {
@@ -32,12 +32,6 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     retrieveNotes();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    prov = Provider.of<LogInProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override
@@ -97,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
                 : showList(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           pickImage();
         },
         foregroundColor: Colors.black,
@@ -113,7 +107,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void pickImage() async {
+  Future pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
@@ -138,6 +132,17 @@ class _MainScreenState extends State<MainScreen> {
         builder: (_) {
           return Center(
             child: DeleteMovie(movieID: id),
+          );
+        });
+  }
+
+  void updateForm(Movies movie) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Center(
+            child: UpdateMovie(movie: movie),
           );
         });
   }
@@ -192,12 +197,25 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 8,
+                      bottom: 8,
                       left: 8,
                       child: mov.isWatched
-                          ? Text(
-                              'Watched already',
-                              style: TextStyle(backgroundColor: Colors.green),
+                          ? Card(
+                              color: Colors.grey[200],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Text(
+                                  'Watched already',
+                                  style: TextStyle(
+                                    color: Colors.green[600],
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             )
                           : Text(''),
                     ),
@@ -234,7 +252,7 @@ class _MainScreenState extends State<MainScreen> {
                           primary: Colors.orange[700],
                         ),
                         onPressed: () {
-                          //update fn here
+                          updateForm(mov);
                         },
                         child: Icon(Icons.edit_sharp),
                       )
