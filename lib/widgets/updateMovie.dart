@@ -91,6 +91,17 @@ class _UpdateMovieState extends State<UpdateMovie> {
           ),
           TextButton(
             onPressed: () {
+              final isValid = _formKey.currentState!.validate();
+
+              if (isValid) {
+                updateMovie();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MainScreen(),
+                  ),
+                );
+              }
             },
             child: Text('Update'),
           ),
@@ -99,4 +110,14 @@ class _UpdateMovieState extends State<UpdateMovie> {
     );
   }
 
+  Future updateMovie() async {
+    final mov = widget.movie.copy(
+      isWatched: tempWatch,
+      movieName: tempMovie,
+      director: tempDir,
+      imagePath: widget.movie.imagePath,
+    );
+
+    await MoviesDatabase.instance.update(mov);
+  }
 }
