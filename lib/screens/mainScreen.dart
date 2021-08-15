@@ -178,7 +178,9 @@ class _MainScreenState extends State<MainScreen> {
                       top: 8,
                       right: 8,
                       child: Container(
-                        color: mov.isWatched ? Colors.grey : Colors.white,
+                        color: mov.isWatched
+                            ? Colors.grey.withOpacity(0.5)
+                            : Colors.white.withOpacity(0.5),
                         child: IconButton(
                           iconSize: 20,
                           color: Colors.black,
@@ -206,23 +208,23 @@ class _MainScreenState extends State<MainScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                  child: ListView(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      Text(
-                        '${mov.movieName}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        '${mov.director}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                        child: ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          children: [
+                            Text(
+                              '${mov.movieName}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              '${mov.director}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ],
                         ),
                       ),
