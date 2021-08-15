@@ -79,4 +79,15 @@ class MainScreen extends StatelessWidget {
       showForm(image.path);
     }
   }
+
+  void showForm(String path) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Center(
+            child: AddMovie(path: path),
+          );
+        });
+  }
 }
