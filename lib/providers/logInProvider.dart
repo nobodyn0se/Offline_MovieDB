@@ -5,13 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class LogInProvider extends ChangeNotifier {
   final logIn = GoogleSignIn();
 
-  set setURL(String url) {
-    _url = url;
-  }
-
-  String _url = '';
-  String get url => _url;
-
   bool _bufferStatus = false;
   bool get isLoading => _bufferStatus;
 
@@ -24,12 +17,13 @@ class LogInProvider extends ChangeNotifier {
     isLoading = true;
 
     final user = await logIn.signIn();
+
     if (user == null) {
       isLoading = false;
       return;
     } else {
       final auth = await user.authentication;
-      setURL = user.photoUrl!;
+
       final creds = GoogleAuthProvider.credential(
           accessToken: auth.accessToken, idToken: auth.idToken);
 
