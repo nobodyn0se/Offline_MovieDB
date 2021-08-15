@@ -203,6 +203,9 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
                   child: ListView(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -220,11 +223,24 @@ class _MainScreenState extends State<MainScreen> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          primary: Colors.orange[700],
+                        ),
+                        onPressed: () {
+                          //update fn here
+                        },
+                        child: Icon(Icons.edit_sharp),
                       )
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
