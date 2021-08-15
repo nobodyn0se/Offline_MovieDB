@@ -74,6 +74,7 @@ class MoviesDatabase {
 
   Future close() async {
     final db = await instance.database;
+    _database = null; //returns old instance otherwise
     db.close();
   }
 }
