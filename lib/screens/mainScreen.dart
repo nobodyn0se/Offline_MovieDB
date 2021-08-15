@@ -152,13 +152,9 @@ class _MainScreenState extends State<MainScreen> {
           child: Card(
             color: Colors.white,
             elevation: 5,
-            shape: RoundedRectangleBorder(),
-            child: Stack(
-              alignment: AlignmentDirectional.bottomStart,
-              children: [
-                Image.file(
-                  File(mov.imagePath),
-                  fit: BoxFit.cover,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.black87, width: 1),
+              borderRadius: BorderRadius.circular(10),
                 ),
                 DefaultTextStyle(
                   style: TextStyle(
