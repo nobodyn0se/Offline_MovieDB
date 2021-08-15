@@ -57,6 +57,17 @@ class _AddMovieState extends State<AddMovie> {
                   ),
                 ),
               ),
+              TextFormField(
+                initialValue: movieName, //TBA
+                decoration: InputDecoration(hintText: 'Movie Name'),
+                onChanged: (_) {
+                },
+              ),
+              TextFormField(
+                  decoration: InputDecoration(hintText: 'Director Name'),
+                  onChanged: (_) {
+                  } //the change function here
+                  ),
             ],
           ),
         ),
@@ -69,11 +80,25 @@ class _AddMovieState extends State<AddMovie> {
           ),
           TextButton(
             onPressed: () {
+              }
             }, //nav pop later
             child: Text('Add Movie'),
           ),
         ],
       ),
     );
+  }
+
+  Future addMovie() async {
+    final movie = Movies(
+      director: directorName!,
+      movieName: movieName!,
+      imagePath: widget.path,
+      isWatched: switchState,
+      time: DateTime.now(),
+    );
+
+    await MoviesDatabase.instance.create(movie);
+    print('Added to DB');
   }
 }
