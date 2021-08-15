@@ -145,6 +145,7 @@ class _MainScreenState extends State<MainScreen> {
 
   ListView showList() {
     return ListView.builder(
+      padding: EdgeInsets.only(bottom: 80),
       itemBuilder: (context, id) {
         final mov = movies[id];
         return Padding(
