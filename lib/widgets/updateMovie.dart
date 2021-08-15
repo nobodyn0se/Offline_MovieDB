@@ -16,6 +16,9 @@ class UpdateMovie extends StatefulWidget {
 
 class _UpdateMovieState extends State<UpdateMovie> {
   final _formKey = GlobalKey<FormState>();
+  String? tempMovie;
+  String? tempDir;
+  bool? tempWatch;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,25 @@ class _UpdateMovieState extends State<UpdateMovie> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Already watched'),
+                  Transform.scale(
+                    scale: 0.8,
+                    child: CupertinoSwitch(
+                      value: tempWatch == null
+                          ? widget.movie.isWatched
+                          : tempWatch!,
+                      onChanged: (val) {
+                        setState(() {
+                          tempWatch = val;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               IntrinsicWidth(
                 child: Container(
                   height: 150,
@@ -40,10 +62,22 @@ class _UpdateMovieState extends State<UpdateMovie> {
               TextFormField(
                 initialValue: widget.movie.movieName,
                 decoration: InputDecoration(hintText: 'Movie Name'),
+                onChanged: (_) {
+                  tempMovie = _;
+                },
+                validator: (tempMovie) => tempMovie == null || tempMovie.isEmpty
+                    ? 'Movie name cannot be empty'
+                    : null,
               ),
               TextFormField(
                 initialValue: widget.movie.director,
                 decoration: InputDecoration(hintText: 'Directed by'),
+                onChanged: (_) {
+                  tempDir = _;
+                },
+                validator: (tempDir) => tempDir == null || tempDir.isEmpty
+                    ? 'Director name cannot be empty'
+                    : null,
               ),
             ],
           ),
