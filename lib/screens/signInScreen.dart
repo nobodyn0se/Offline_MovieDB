@@ -89,7 +89,7 @@ class SignInScreen extends StatelessWidget {
                       'assets/google_logo.png',
                       height: 50,
                       width: 50,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                     ),
                     SizedBox(
                       width: 10,
