@@ -60,12 +60,20 @@ class _AddMovieState extends State<AddMovie> {
               TextFormField(
                 initialValue: movieName, //TBA
                 decoration: InputDecoration(hintText: 'Movie Name'),
+                validator: (movieName) =>
+                    movieName == null || movieName.isEmpty ? 'Not empty' : null,
                 onChanged: (_) {
+                  movieName = _;
                 },
               ),
               TextFormField(
                   decoration: InputDecoration(hintText: 'Director Name'),
+                  validator: (directorName) =>
+                      directorName == null || directorName.isEmpty
+                          ? 'Director Name cannot be empty'
+                          : null,
                   onChanged: (_) {
+                    directorName = _;
                   } //the change function here
                   ),
             ],
@@ -80,6 +88,11 @@ class _AddMovieState extends State<AddMovie> {
           ),
           TextButton(
             onPressed: () {
+              final isValid = formKey.currentState!.validate();
+              if (isValid) {
+                addMovie();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => MainScreen()));
               }
             }, //nav pop later
             child: Text('Add Movie'),
