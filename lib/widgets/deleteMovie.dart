@@ -11,6 +11,7 @@ class DeleteMovie extends StatelessWidget {
     return AlertDialog(
       scrollable: false,
       title: Text('Do you want to delete this movie?'),
+      content: Text('This action cannot be undone.'),
       actions: [
         TextButton(
           onPressed: () {
