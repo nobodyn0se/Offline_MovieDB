@@ -166,6 +166,7 @@ class _MainScreenState extends State<MainScreen> {
                       fontSize: 18,
                       backgroundColor: Colors.black54),
                   child: ListView(
+              physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
                       Text('${mov.movieName}'),
