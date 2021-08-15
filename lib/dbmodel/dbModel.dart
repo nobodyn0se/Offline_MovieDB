@@ -34,6 +34,22 @@ class Movies {
       required this.director,
       required this.time});
 
+  Movies copy({
+    int? id,
+    bool? isWatched,
+    String? imagePath,
+    String? movieName,
+    String? director,
+    DateTime? time,
+  }) =>
+      Movies(
+        id: id ?? this.id,
+        isWatched: isWatched ?? this.isWatched,
+        imagePath: imagePath ?? this.imagePath,
+        movieName: movieName ?? this.movieName,
+        director: director ?? this.director,
+        time: time ?? this.time,
+      );
 
   static Movies fromJson(Map<String, Object?> json) => Movies(
       id: json[MovieTable.id] as int?,
