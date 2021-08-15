@@ -17,10 +17,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   bool isLoading = false;
+  late final prov;
   List<Movies> movies = [];
 
   Future retrieveNotes() async {
     setState(() => isLoading = true);
+    await MoviesDatabase.instance.database;
     this.movies = await MoviesDatabase.instance.getMoviesList();
     setState(() => isLoading = false);
     print('List called');
@@ -34,6 +36,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void didChangeDependencies() {
+    prov = Provider.of<LogInProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
