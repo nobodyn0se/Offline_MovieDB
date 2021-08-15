@@ -1,6 +1,12 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movies_database/db/moviesDatabase.dart';
+import 'package:movies_database/dbmodel/dbModel.dart';
 import 'package:movies_database/providers/logInProvider.dart';
+import 'package:movies_database/widgets/AddMovie.dart';
+import 'package:movies_database/widgets/deleteMovie.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -39,8 +45,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<LogInProvider>(context);
     const String mainTitle = 'Movies Database';
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -48,10 +54,7 @@ class _MainScreenState extends State<MainScreen> {
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              provider.url,
-              fit: BoxFit.fill,
-            ),
+            child: Image.asset('assets/google_logo.png'),
           ),
         ),
         elevation: 0,
@@ -126,6 +129,17 @@ class _MainScreenState extends State<MainScreen> {
           );
         });
   }
+
+  void showDelete(int id) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Center(
+            child: DeleteMovie(movieID: id),
+          );
+        });
+  }
+
   ListView showList() {
     return ListView.builder(
       itemBuilder: (context, id) {
