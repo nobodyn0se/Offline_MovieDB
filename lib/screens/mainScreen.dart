@@ -126,4 +126,58 @@ class _MainScreenState extends State<MainScreen> {
           );
         });
   }
+  ListView showList() {
+    return ListView.builder(
+      itemBuilder: (context, id) {
+        final mov = movies[id];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Card(
+            color: Colors.white,
+            elevation: 5,
+            shape: RoundedRectangleBorder(),
+            child: Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                Image.file(
+                  File(mov.imagePath),
+                  fit: BoxFit.cover,
+                ),
+                DefaultTextStyle(
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      backgroundColor: Colors.black54),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Text('${mov.movieName}'),
+                      Text('${mov.director}'),
+                      Text('${mov.id}'),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    color: Colors.white,
+                    child: IconButton(
+                      iconSize: 20,
+                      color: Colors.black,
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        showDelete(mov.id!);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      itemCount: movies.length,
+    );
+  }
 }
