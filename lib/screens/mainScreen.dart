@@ -155,7 +155,7 @@ class _MainScreenState extends State<MainScreen> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Card(
-            color: mov.isWatched == true ? Colors.grey : Colors.white,
+            color: Colors.white,
             elevation: 5,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.black87, width: 1),
@@ -183,9 +183,7 @@ class _MainScreenState extends State<MainScreen> {
                       top: 8,
                       right: 8,
                       child: Container(
-                        color: mov.isWatched
-                            ? Colors.grey.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.5),
+                        color: Colors.white.withOpacity(0.5),
                         child: IconButton(
                           iconSize: 20,
                           color: Colors.black,
