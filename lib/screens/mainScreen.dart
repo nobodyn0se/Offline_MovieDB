@@ -25,7 +25,6 @@ class _MainScreenState extends State<MainScreen> {
     await MoviesDatabase.instance.database;
     this.movies = await MoviesDatabase.instance.getMoviesList();
     setState(() => isLoading = false);
-    print('List called');
   }
 
   @override
@@ -158,7 +157,7 @@ class _MainScreenState extends State<MainScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Card(
             color: Colors.white,
-            elevation: 5,
+            elevation: 10,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.black87, width: 1),
               borderRadius: BorderRadius.circular(10),
@@ -169,99 +168,8 @@ class _MainScreenState extends State<MainScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: [
-                  Stack(
-                    alignment: AlignmentDirectional.bottomStart,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 180,
-                          width: double.maxFinite,
-                          child: Image.file(
-                            File(mov.imagePath),
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Container(
-                          color: Colors.white.withOpacity(0.5),
-                          child: IconButton(
-                            iconSize: 20,
-                            color: Colors.black,
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              showDelete(mov.id!);
-                            },
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        left: 8,
-                        child: mov.isWatched
-          ? Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: 25,
-                  width: 25,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                                ),
-                ),
-                Icon(
-                                    Icons.check_circle,
-                  color: Colors.green[600],
-                  size: 35,
-                                  ),
-              ],
-                              )
-                            : Text(''),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ListView(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children: [
-                              Text(
-                                '${mov.movieName}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'by ${mov.director}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            primary: Colors.orange[700],
-                          ),
-                          onPressed: () {
-                            updateForm(mov);
-                          },
-                          child: Icon(Icons.edit_sharp),
-                        )
-                      ],
-                    ),
-                  ),
+                  upperCard(mov),
+                  bottomCard(mov),
                   SizedBox(
                     height: 10,
                   ),
@@ -272,6 +180,109 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
       itemCount: movies.length,
+    );
+  }
+
+  Stack upperCard(Movies mov) {
+    return Stack(
+      alignment: AlignmentDirectional.bottomStart,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 180,
+            width: double.maxFinite,
+            child: Image.file(
+              File(mov.imagePath),
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 8,
+          right: 8,
+          child: Container(
+            color: Colors.white.withOpacity(0.5),
+            child: IconButton(
+              iconSize: 20,
+              color: Colors.black,
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                showDelete(mov.id!);
+              },
+            ),
+          ),
+        ),
+        watchTickBox(mov),
+      ],
+    );
+  }
+
+  Positioned watchTickBox(Movies mov) {
+    return Positioned(
+      bottom: 13,
+      left: 13,
+      child: mov.isWatched
+          ? Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green[600],
+                  size: 35,
+                ),
+              ],
+            )
+          : Text(''),
+    );
+  }
+
+  Padding bottomCard(Movies mov) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: ListView(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                Text(
+                  '${mov.movieName}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  'by ${mov.director}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: CircleBorder(),
+              primary: Colors.orange[700],
+            ),
+            onPressed: () {
+              updateForm(mov);
+            },
+            child: Icon(Icons.edit_sharp),
+          )
+        ],
+      ),
     );
   }
 }
