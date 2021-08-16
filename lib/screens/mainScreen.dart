@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                           width: double.maxFinite,
                           child: Image.file(
                             File(mov.imagePath),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
                       ),
