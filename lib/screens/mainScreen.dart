@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                 : showList(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
+        onPressed: () {
           pickImage();
         },
         foregroundColor: Colors.black,
@@ -163,106 +163,106 @@ class _MainScreenState extends State<MainScreen> {
               side: BorderSide(color: Colors.black87, width: 1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: ListView(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 180,
-                        width: double.maxFinite,
-                        child: Image.file(
-                          File(mov.imagePath),
-                          fit: BoxFit.fitWidth,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              child: ListView(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.bottomStart,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 180,
+                          width: double.maxFinite,
+                          child: Image.file(
+                            File(mov.imagePath),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        color: Colors.white.withOpacity(0.5),
-                        child: IconButton(
-                          iconSize: 20,
-                          color: Colors.black,
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            showDelete(mov.id!);
-                          },
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Container(
+                          color: Colors.white.withOpacity(0.5),
+                          child: IconButton(
+                            iconSize: 20,
+                            color: Colors.black,
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              showDelete(mov.id!);
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      left: 8,
-                      child: mov.isWatched
-                          ? Card(
-                              color: Colors.grey[200],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Text(
-                                  'Watched already',
-                                  style: TextStyle(
-                                    color: Colors.green[600],
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                      Positioned(
+                        bottom: 8,
+                        left: 8,
+                        child: mov.isWatched
+                            ? Card(
+                                color: Colors.green[600],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    color: Colors.white,
+                                    size: 30,
                                   ),
                                 ),
-                              ),
-                            )
-                          : Text(''),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ListView(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: [
-                            Text(
-                              '${mov.movieName}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                            Text(
-                              '${mov.director}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
+                              )
+                            : Text(''),
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          primary: Colors.orange[700],
-                        ),
-                        onPressed: () {
-                          updateForm(mov);
-                        },
-                        child: Icon(Icons.edit_sharp),
-                      )
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: [
+                              Text(
+                                '${mov.movieName}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                'by ${mov.director}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            primary: Colors.orange[700],
+                          ),
+                          onPressed: () {
+                            updateForm(mov);
+                          },
+                          child: Icon(Icons.edit_sharp),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
           ),
         );
