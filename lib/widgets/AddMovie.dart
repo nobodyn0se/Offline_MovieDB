@@ -24,7 +24,6 @@ class _AddMovieState extends State<AddMovie> {
     return SingleChildScrollView(
       child: AlertDialog(
         scrollable: false,
-        //title: Text('Dummy Screen'),
         content: Form(
           key: formKey,
           child: Column(
@@ -57,10 +56,11 @@ class _AddMovieState extends State<AddMovie> {
                 ),
               ),
               TextFormField(
-                initialValue: movieName, //TBA
+                initialValue: movieName,
                 decoration: InputDecoration(hintText: 'Movie Name'),
-                validator: (movieName) =>
-                    movieName == null || movieName.isEmpty ? 'Not empty' : null,
+                validator: (movieName) => movieName == null || movieName.isEmpty
+                    ? 'Movie name cannot be empty'
+                    : null,
                 onChanged: (_) {
                   movieName = _;
                 },
@@ -69,12 +69,11 @@ class _AddMovieState extends State<AddMovie> {
                   decoration: InputDecoration(hintText: 'Director Name'),
                   validator: (directorName) =>
                       directorName == null || directorName.isEmpty
-                          ? 'Director Name cannot be empty'
+                          ? 'Director\'s Name cannot be empty'
                           : null,
                   onChanged: (_) {
                     directorName = _;
-                  } //the change function here
-                  ),
+                  }),
             ],
           ),
         ),
@@ -93,11 +92,12 @@ class _AddMovieState extends State<AddMovie> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainScreen(),
+                    builder: (context) =>
+                        MainScreen(), //refreshes the MainScreen build
                   ),
                 );
               }
-            }, //nav pop later
+            },
             child: Text('Add Movie'),
           ),
         ],

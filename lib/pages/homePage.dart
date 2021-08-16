@@ -9,7 +9,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: FirebaseAuth.instance
+          .authStateChanges(), //persists signIn unless logged out manually
       builder: (context, snapshot) {
         final prov = Provider.of<LogInProvider>(context, listen: false);
         if (prov.isLoading) {

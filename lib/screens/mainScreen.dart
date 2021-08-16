@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:movies_database/db/moviesDatabase.dart';
 import 'package:movies_database/dbmodel/dbModel.dart';
 import 'package:movies_database/providers/logInProvider.dart';
-import 'package:movies_database/widgets/AddMovie.dart';
+import 'package:movies_database/widgets/addMovie.dart';
 import 'package:movies_database/widgets/deleteMovie.dart';
 import 'package:movies_database/widgets/updateMovie.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Future retrieveNotes() async {
     setState(() => isLoading = true);
-    await MoviesDatabase.instance.database;
+    await MoviesDatabase.instance.database; //closes old, returns new instance
     this.movies = await MoviesDatabase.instance.getMoviesList();
     setState(() => isLoading = false);
   }
@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void dispose() {
-    MoviesDatabase.instance.close();
+    MoviesDatabase.instance.close(); //close the db instance upon app exit
     super.dispose();
   }
 
@@ -56,6 +56,7 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 0,
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
+            //explicit statusBar color setup
             statusBarColor: Colors.white,
             statusBarIconBrightness: Brightness.dark),
         centerTitle: true,
@@ -68,7 +69,8 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(
             onPressed: () {
               final prov = Provider.of<LogInProvider>(context, listen: false);
-              Navigator.popUntil(context, (route) => route.isFirst);
+              Navigator.popUntil(context,
+                  (route) => route.isFirst); //removes all routes but one
               prov.logOut();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -108,6 +110,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  //opens Gallery image picker, returns image path from local storage
   Future pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -116,6 +119,7 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  //shows a popup dialog with a form to add a movie
   void showForm(String path) {
     showDialog(
         barrierDismissible: false,
@@ -127,6 +131,7 @@ class _MainScreenState extends State<MainScreen> {
         });
   }
 
+  //shows a popup dialog to confirm deletion
   void showDelete(int id) {
     showDialog(
         context: context,
@@ -137,6 +142,7 @@ class _MainScreenState extends State<MainScreen> {
         });
   }
 
+  //shows a popup to update movie name, director name, watch status, thumbnail
   void updateForm(Movies movie) {
     showDialog(
         barrierDismissible: false,
@@ -148,6 +154,7 @@ class _MainScreenState extends State<MainScreen> {
         });
   }
 
+  //main widget to display the listView of movie Cards
   ListView showList() {
     return ListView.builder(
       padding: EdgeInsets.only(bottom: 80),
@@ -168,8 +175,10 @@ class _MainScreenState extends State<MainScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: [
-                  upperCard(mov),
-                  bottomCard(mov),
+                  upperCard(
+                      mov), //contains movie thumbnail, delete icon and watched tickBox
+                  bottomCard(
+                      mov), //contains movie name, director name and the update button
                   SizedBox(
                     height: 10,
                   ),
@@ -208,7 +217,7 @@ class _MainScreenState extends State<MainScreen> {
               color: Colors.black,
               icon: Icon(Icons.delete),
               onPressed: () {
-                showDelete(mov.id!);
+                showDelete(mov.id!); //pass the id from the db
               },
             ),
           ),

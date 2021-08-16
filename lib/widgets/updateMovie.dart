@@ -102,7 +102,7 @@ class _UpdateMovieState extends State<UpdateMovie> {
                   tempDir = _;
                 },
                 validator: (tempDir) => tempDir == null || tempDir.isEmpty
-                    ? 'Director name cannot be empty'
+                    ? 'Director\'s name cannot be empty'
                     : null,
               ),
             ],
@@ -141,7 +141,8 @@ class _UpdateMovieState extends State<UpdateMovie> {
       isWatched: tempWatch,
       movieName: tempMovie,
       director: tempDir,
-      imagePath: tempPhoto ?? widget.movie.imagePath,
+      imagePath: tempPhoto ??
+          widget.movie.imagePath, //return the original string if not replaced
     );
 
     await MoviesDatabase.instance.update(mov);
