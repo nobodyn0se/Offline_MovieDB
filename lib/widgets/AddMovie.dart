@@ -7,7 +7,6 @@ import 'package:movies_database/screens/mainScreen.dart';
 
 class AddMovie extends StatefulWidget {
   const AddMovie({required this.path});
-
   final String path;
 
   @override
@@ -91,8 +90,12 @@ class _AddMovieState extends State<AddMovie> {
               final isValid = formKey.currentState!.validate();
               if (isValid) {
                 addMovie();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MainScreen(),
+                  ),
+                );
               }
             }, //nav pop later
             child: Text('Add Movie'),
