@@ -202,19 +202,23 @@ class _MainScreenState extends State<MainScreen> {
                         bottom: 8,
                         left: 8,
                         child: mov.isWatched
-                            ? Card(
-                                color: Colors.green[600],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+          ? Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Icon(
+                ),
+                Icon(
                                     Icons.check_circle,
-                                    color: Colors.white,
-                                    size: 30,
+                  color: Colors.green[600],
+                  size: 35,
                                   ),
-                                ),
+              ],
                               )
                             : Text(''),
                       ),
