@@ -115,6 +115,5 @@ class _AddMovieState extends State<AddMovie> {
     );
 
     await MoviesDatabase.instance.create(movie);
-    print('Added to DB');
   }
 }
