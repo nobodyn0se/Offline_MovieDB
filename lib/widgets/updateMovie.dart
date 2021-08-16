@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movies_database/db/moviesDatabase.dart';
 import 'package:movies_database/dbmodel/dbModel.dart';
 import 'package:movies_database/screens/mainScreen.dart';
@@ -19,6 +21,7 @@ class _UpdateMovieState extends State<UpdateMovie> {
   String? tempMovie;
   String? tempDir;
   bool? tempWatch;
+  String? tempPhoto;
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +53,40 @@ class _UpdateMovieState extends State<UpdateMovie> {
                   ),
                 ],
               ),
-              IntrinsicWidth(
-                child: Container(
-                  height: 150,
-                  child: Image.file(
-                    File(widget.movie.imagePath),
-                    fit: BoxFit.cover,
-                  ),
+              Container(
+                height: 150,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.file(
+                      File(tempPhoto ?? widget.movie.imagePath),
+                      fit: BoxFit.cover,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          primary: Colors.yellow[700],
+                        ),
+                        onPressed: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          final XFile? image = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null)
+                            setState(() {
+                              tempPhoto = image.path;
+                            });
+                        },
+                        child: Icon(Icons.edit_sharp),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               TextFormField(
                 initialValue: widget.movie.movieName,
-                decoration: InputDecoration(hintText: 'Movie Name'),
+                decoration: InputDecoration(hintText: 'Update movie name'),
                 onChanged: (_) {
                   tempMovie = _;
                 },
@@ -71,7 +96,8 @@ class _UpdateMovieState extends State<UpdateMovie> {
               ),
               TextFormField(
                 initialValue: widget.movie.director,
-                decoration: InputDecoration(hintText: 'Directed by'),
+                decoration:
+                    InputDecoration(hintText: 'Update director\'s name'),
                 onChanged: (_) {
                   tempDir = _;
                 },
@@ -115,7 +141,7 @@ class _UpdateMovieState extends State<UpdateMovie> {
       isWatched: tempWatch,
       movieName: tempMovie,
       director: tempDir,
-      imagePath: widget.movie.imagePath,
+      imagePath: tempPhoto ?? widget.movie.imagePath,
     );
 
     await MoviesDatabase.instance.update(mov);
