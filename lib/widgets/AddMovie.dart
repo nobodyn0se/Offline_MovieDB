@@ -56,6 +56,7 @@ class _AddMovieState extends State<AddMovie> {
                 ),
               ),
               TextFormField(
+                autocorrect: false,
                 initialValue: movieName,
                 decoration: InputDecoration(hintText: 'Movie Name'),
                 validator: (movieName) => movieName == null || movieName.isEmpty
@@ -66,6 +67,7 @@ class _AddMovieState extends State<AddMovie> {
                 },
               ),
               TextFormField(
+                  autocorrect: false,
                   decoration: InputDecoration(hintText: 'Director Name'),
                   validator: (directorName) =>
                       directorName == null || directorName.isEmpty

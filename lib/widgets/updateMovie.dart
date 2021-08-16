@@ -85,6 +85,7 @@ class _UpdateMovieState extends State<UpdateMovie> {
                 ),
               ),
               TextFormField(
+                autocorrect: false,
                 initialValue: widget.movie.movieName,
                 decoration: InputDecoration(hintText: 'Update movie name'),
                 onChanged: (_) {
@@ -95,6 +96,7 @@ class _UpdateMovieState extends State<UpdateMovie> {
                     : null,
               ),
               TextFormField(
+                autocorrect: false,
                 initialValue: widget.movie.director,
                 decoration:
                     InputDecoration(hintText: 'Update director\'s name'),
